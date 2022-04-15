@@ -13,8 +13,6 @@ export const initialState = {
 /**
  * Random payload
  * Manage type constants
- * No async capability
- * Manage everything else yourself
  * Payload is just a convention, not standard
  * Import and pass dispatch in every action call
  */
@@ -36,6 +34,7 @@ export const toggleTodo = (id, dispatch) => {
  *
  * Manage immutability, think about deep nested objects
  * Manage business logic
+ * Async scenarios
  */
 export const reducer = (state, action) => {
   const { type, payload } = action;
