@@ -1,24 +1,76 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, Profiler } from "react";
+import SMART_CONTEXT_TODO from "./smart-context-todo";
+import REDUX_TODO from "./redux-context-todo";
+import VANILA_CONTEXT_TODO from "./vanilla-context-todo";
+import callback from "./common/profilerCb";
+
+import "./App.css";
 
 function App() {
+  const [comp, setComp] = useState("1");
+  const [perf, setPerf] = useState("1");
+  const [sz, setSz] = useState(10);
+
+  const inputChangeHandler = (e) => {
+    const { name, value } = e.target;
+    if (name === "demo") {
+      setComp(value);
+    } else if (name === "size") {
+      setSz(parseInt(value));
+    } else {
+      setPerf(value);
+    }
+  };
+
+  const isPerf = perf === "2";
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Profiler onRender={callback}>
+      <div className="App">
+        <h1>React Context performance test</h1>
+
+        <div className="app-options">
+          <div className="option-input">
+            <label htmlFor="app_type">App type</label>
+
+            <select name="demo" id="app_type" onChange={inputChangeHandler}>
+              <option value="1">Smart-Context</option>
+              <option value="2">Vanilla React Context</option>
+              <option value="3">Redux</option>
+            </select>
+          </div>
+
+          <div className="option-input">
+            <label htmlFor="optimized">Performance mode</label>
+
+            <select name="perf" id="optimized" onChange={inputChangeHandler}>
+              <option value="1">Default</option>
+              <option value="2">High performance</option>
+            </select>
+          </div>
+
+          <div className="option-input">
+            <label htmlFor="size">Input size</label>
+
+            <select name="size" id="size" onChange={inputChangeHandler}>
+              <option value="10">10</option>
+              <option value="100">100</option>
+              <option value="1000">1000</option>
+              <option value="5000">5000</option>
+              <option value="10000">10000</option>
+            </select>
+          </div>
+        </div>
+
+        <div className="app-container">
+          {comp === "1" && <SMART_CONTEXT_TODO perf={isPerf} inputSize={sz} />}
+
+          {comp === "2" && <VANILA_CONTEXT_TODO perf={isPerf} inputSize={sz} />}
+
+          {comp === "3" && <REDUX_TODO perf={isPerf} inputSize={sz} />}
+        </div>
+      </div>
+    </Profiler>
   );
 }
 

@@ -36,3 +36,29 @@
     transform: rotate(360deg);
   }
 }
+
+.app-options {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px 32px;
+}
+
+.option-input label {
+  padding-right: 16px;
+}
+
+
+.app-container {
+  padding: 16px;
+}
+
+.app-container button {
+  margin: 12px;
+}
+
+.todo-container {
+  border: 1px solid black;
+  max-height: 400px;
+  overflow: auto;
+}
