@@ -10,6 +10,7 @@ function App() {
   const [comp, setComp] = useState("1");
   const [perf, setPerf] = useState("1");
   const [sz, setSz] = useState(10);
+  const [tm, setTm] = useState(0);
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -20,12 +21,20 @@ function App() {
     } else {
       setPerf(value);
     }
+    setTm(0)
   };
+
+  const timerCb = (...args) => { 
+    const smTM = callback(...args)
+    if(smTM) {
+      setTm(smTM)
+    }
+  }
 
   const isPerf = perf === "2";
 
   return (
-    <Profiler onRender={callback}>
+    <Profiler onRender={timerCb}>
       <div className="App">
         <h1>React Context performance test</h1>
 
@@ -69,6 +78,10 @@ function App() {
 
           {comp === "3" && <REDUX_TODO perf={isPerf} inputSize={sz} />}
         </div>
+
+        <div className="result">
+            {`Simulate time (ms) : ${tm}`}
+         </div>
       </div>
     </Profiler>
   );

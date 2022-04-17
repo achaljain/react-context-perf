@@ -1,12 +1,12 @@
 let SIZE = 10;
 
-const SIMULATE_SIZE = 10;
+export const SIMULATE_SIZE = 10;
 
-export const generate = (sz)=> {
-  if(sz) {
-    SIZE = sz
+export const generate = (sz) => {
+  if (sz) {
+    SIZE = sz;
   }
-  
+
   const obj = {};
   for (let i = 0; i < SIZE; ++i) {
     obj[i] = {
@@ -31,11 +31,15 @@ export const updateHandler = (btnId, fullList) => {
 
 export const simulateHandler = () => {
   let ctr = 0;
+  window.logStartTime = "start";
   const intervalRef = setInterval(() => {
     if (ctr === SIMULATE_SIZE) {
       clearInterval(intervalRef);
       return false;
     } else {
+      if (ctr === SIMULATE_SIZE - 1) {
+        window.logStartTime = "end";
+      }
       const id = Math.floor(Math.random() * SIZE);
       const elem = document.getElementById(`btn-${id}`);
       elem.click();
